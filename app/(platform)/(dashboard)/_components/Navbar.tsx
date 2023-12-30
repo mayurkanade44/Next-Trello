@@ -9,6 +9,7 @@ import { Menu, Plus } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
+import FormPopover from "@/components/form/FormPopover";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -52,16 +53,20 @@ const Navbar = () => {
         <div className="hidden md:flex">
           <Logo />
         </div>
-        <Button
-          variant="primary"
-          size="sm"
-          className="rounded-dm hidden md:block h-auto py-1.5 px-4"
-        >
-          Create
-        </Button>
-        <Button size="sm" variant="primary" className="block md:hidden">
-          <Plus className="h-4 w-4" />
-        </Button>
+        <FormPopover align="start" side="bottom" sideOffset={20}>
+          <Button
+            variant="primary"
+            size="sm"
+            className="rounded-dm hidden md:block h-auto py-1.5 px-4"
+          >
+            Create
+          </Button>
+        </FormPopover>
+        <FormPopover>
+          <Button size="sm" variant="primary" className="block md:hidden">
+            <Plus className="h-4 w-4" />
+          </Button>
+        </FormPopover>
       </div>
       <div className="ml-auto flex items-center gap-x-2">
         <OrganizationSwitcher
