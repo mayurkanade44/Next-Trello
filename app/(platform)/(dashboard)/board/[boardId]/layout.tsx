@@ -1,6 +1,7 @@
-import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { notFound, redirect } from "next/navigation";
+
+import { db } from "@/lib/db";
 import BoardNavbar from "./_components/BoardNavbar";
 
 export async function generateMetadata({
@@ -37,7 +38,9 @@ const BoardIdLayout = async ({
 }) => {
   const { orgId } = auth();
 
-  if (!orgId) redirect("/select-org");
+  if (!orgId) {
+    redirect("/select-org");
+  }
 
   const board = await db.board.findUnique({
     where: {
@@ -46,7 +49,9 @@ const BoardIdLayout = async ({
     },
   });
 
-  if (!board) return notFound();
+  if (!board) {
+    notFound();
+  }
 
   return (
     <div
@@ -55,8 +60,9 @@ const BoardIdLayout = async ({
     >
       <BoardNavbar data={board} />
       <div className="absolute inset-0 bg-black/10" />
-      <main className="relative pt-96 h-full">{children}</main>
+      <main className="relative pt-28 h-screen">{children}</main>
     </div>
   );
 };
+
 export default BoardIdLayout;
